@@ -2,6 +2,8 @@ package com.burakay.taskflow.controller;
 
 import com.burakay.taskflow.dto.TaskRequest;
 import com.burakay.taskflow.dto.TaskResponse;
+import com.burakay.taskflow.entity.TaskPriority;
+import com.burakay.taskflow.entity.TaskStatus;
 import com.burakay.taskflow.service.TaskService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +19,12 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping
-    public List<TaskResponse> getAllTasks(){
-        return taskService.getAllTasks();
-    };
+    public List<TaskResponse> getTasks(
+            @RequestParam(required = false) TaskStatus status,
+            @RequestParam(required = false) TaskPriority priority
+    ) {
+        return taskService.getTasks(status, priority);
+    }
 
     @GetMapping("/{id}")
     public TaskResponse getTaskById(@PathVariable Long id){

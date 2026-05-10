@@ -3,6 +3,8 @@ package com.burakay.taskflow.service;
 import com.burakay.taskflow.dto.TaskRequest;
 import com.burakay.taskflow.dto.TaskResponse;
 import com.burakay.taskflow.entity.Task;
+import com.burakay.taskflow.entity.TaskPriority;
+import com.burakay.taskflow.entity.TaskStatus;
 import com.burakay.taskflow.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,24 @@ public class TaskService {
     public List<TaskResponse> getAllTasks(){
         return taskRepository.findAll()
                 .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    public List<TaskResponse> getTasks(TaskStatus status, TaskPriority priority) {
+        List<Task> tasks;
+
+        if (status != null && priority != null) {
+            tasks = taskRepository.findByStatusAndPriority(status, priority);
+        } else if (status != null) {
+            tasks = taskRepository.findByStatus(status);
+        } else if (priority != null) {
+            tasks = taskRepository.findByPriority(priority);
+        } else {
+            tasks = taskRepository.findAll();
+        }
+
+        return tasks.stream()
                 .map(this::mapToResponse)
                 .toList();
     }
