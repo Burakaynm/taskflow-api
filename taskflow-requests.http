@@ -1,0 +1,36 @@
+### Get all tasks
+GET http://localhost:8080/api/tasks
+
+
+### Create task
+POST http://localhost:8080/api/tasks
+Content-Type: application/json
+
+{
+  "title": "Learn Spring Boot",
+  "description": "Create the first REST API endpoint for TaskFlow project",
+  "status": "TODO",
+  "priority": "HIGH",
+  "dueDate": "2026-05-15"
+}
+
+
+### Get task by id
+GET http://localhost:8080/api/tasks/1
+
+
+### Update task
+PUT http://localhost:8080/api/tasks/1
+Content-Type: application/json
+
+{
+  "title": "Learn Spring Boot and JPA",
+  "description": "Update the first task and test PUT endpoint",
+  "status": "IN_PROGRESS",
+  "priority": "MEDIUM",
+  "dueDate": "2026-05-20"
+}
+
+
+### Delete task
+DELETE http://localhost:8080/api/tasks/1
